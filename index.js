@@ -6,16 +6,39 @@
  * - equals: returns the value (thanks to an 'eval' function)
  * - clear: clears the history
  */
+ class Calculator {
+    constructor() {
+      this._prevCalc = []; 
+    }
+    history(val) {
+      this._prevCalc.push(val); // push prev calculation into the array
+      console.log(this._prevCalc);
+    }
+    equals() {
+      const operation = calculatorScreen.innerHTML;
+      const result = eval(operation); // eval() performs the calculation
+      this.history(result);
+      calculatorScreen.innerHTML = result;
+    }
+    clear() {
+      this._prevCalc = [];
+      calculatorScreen.innerHTML = "";
+    }
+  }
+ 
+  //Create new Instance For Calculator
+  const newCalculator = new Calculator();
 
  const calculatorScreen = document.querySelector("#calculator .screen");
  const equals = document.querySelector("#calculator .eval");
  
- /**
-  * This function below write the value of the pressed key on the screen
-  * The += is the equivalent of:
-  * document.querySelector('.screen').innerHTML = document.querySelector('.screen').innerHTML + val;
-  *
-  **/
+ //  /
+ //   * This function below write the value of the pressed key on the screen
+ //   * The += is the equivalent of:
+ //   * document.querySelector('.screen').innerHTML = document.querySelector('.screen').innerHTML + val;
+ //   *
+ //   /
+
  function print(val) {
    calculatorScreen.innerHTML += val;
  }
@@ -32,4 +55,4 @@
    .addEventListener("click", () => (calculatorScreen.innerHTML = ""));
  
  // Implement here the event when the = key is pressed
- document.addEventListener('keypress', (e) => print(calculatorScreen.innerText));
+equals.addEventListener('click', () => newCalculator.equals())
